@@ -24,18 +24,16 @@ def player(board):
     """
     count = 0
     for rows in board:
-        for cells in rows:
-            print(cells)
-            if cells == "X":
+        for cell in rows:
+            if cell != EMPTY:
                 count += 1
 
-    print(count)
     if count == 0:
         return EMPTY        
     if count % 2 == 1:
-        return X
-    else:
         return O
+    else:
+        return X
     raise NotImplementedError
 
 
@@ -81,11 +79,7 @@ def minimax(board):
     raise NotImplementedError
 
 def main():
-    value = player([[EMPTY, EMPTY, EMPTY],
-            [EMPTY, "X", EMPTY],
-            [EMPTY, "X", "O"]])
-    
-    print(value)
+    raise NotImplementedError
 
 if __name__ == "__main__":
     main()
