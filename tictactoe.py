@@ -36,13 +36,6 @@ def player(board):
         return X
     raise NotImplementedError
 
-def main():
-    print("RUNNING MAIN")
-    available = actions([[O, X, EMPTY],
-            [X, EMPTY, X],
-            [EMPTY, X, EMPTY]])
-    print(available)
-    #raise NotImplementedError
 
 def actions(board):
     """
@@ -56,12 +49,23 @@ def actions(board):
 
     return available
 
+def main():
+    print("RUNNING MAIN")
+    board = result([[O, X, EMPTY],
+            [O, EMPTY, EMPTY],
+            [EMPTY, X, EMPTY]],
+            (2, 2))
+    print(board)
+    
+    #raise NotImplementedError
 
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
+    nextplayer = player(board)
+    board[action[0]][action[1]] = nextplayer
+    return board
 
 
 def winner(board):
