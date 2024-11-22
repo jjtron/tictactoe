@@ -29,19 +29,32 @@ def player(board):
                 count += 1
 
     if count == 0:
-        return EMPTY        
+        return X        
     if count % 2 == 1:
         return O
     else:
         return X
     raise NotImplementedError
 
+def main():
+    print("RUNNING MAIN")
+    available = actions([[O, X, EMPTY],
+            [X, EMPTY, X],
+            [EMPTY, X, EMPTY]])
+    print(available)
+    #raise NotImplementedError
 
 def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+    available = set()
+    for i, rows in enumerate(board):
+        for j, cell in enumerate(rows):
+            if cell == None:
+                available.add((i, j))
+
+    return available
 
 
 def result(board, action):
@@ -76,9 +89,6 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
-
-def main():
     raise NotImplementedError
 
 if __name__ == "__main__":
