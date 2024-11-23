@@ -52,11 +52,12 @@ def actions(board):
 
 def main():
     print("RUNNING MAIN")
-    board = result([[O, X, EMPTY],
-            [O, EMPTY, EMPTY],
-            [EMPTY, X, EMPTY]],
-            (2, 2))
-    print(board)
+    board_winner = winner(
+        [[O, X, X],
+         [X, O, EMPTY],
+         [O, X, O]]
+        )
+    print(board_winner)
     
     #raise NotImplementedError
 
@@ -74,7 +75,33 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    
+    cases = []
+    for rows in board:
+        # check rows
+        if rows[0] == rows[1] == rows[2] and rows[0] != None:
+            print("row win detected")
+            return rows[0]
+        # collect columns
+        for cell in rows:
+            cases.append(cell)
+    
+    for i in range(0, 2):
+        # check columns
+        if cases[i] == cases[i + 3] == cases[i + 6] and cases[i] != None:
+            print("column win detected")
+            return cases[0]
+
+    # check diagonals
+    if cases[0] == cases[4] == cases[8] and cases[0] != None:
+            print("diag 048 win detected")
+            return cases[0]
+
+    if cases[2] == cases[4] == cases[6] and cases[0] != None:
+            print("diag 246 win detected")
+            return cases[2]
+
+    return None
 
 
 def terminal(board):
