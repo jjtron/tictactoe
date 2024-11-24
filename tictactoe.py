@@ -68,6 +68,10 @@ def result(board, action):
     """
     nextplayer = player(board)
     newboard = copy.deepcopy(board)
+    if newboard[action[0]][action[1]] != None:
+        raise Exception
+    if action[0] < 0 or action[0] > 2 or action[1] < 0 or action[1] > 2:
+        raise Exception
     newboard[action[0]][action[1]] = nextplayer
     return newboard
 
