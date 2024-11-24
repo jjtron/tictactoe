@@ -50,17 +50,6 @@ def actions(board):
 
     return available
 
-def main():
-    print("RUNNING MAIN")
-    print(terminal(
-        [
-            [O, X, X],
-            [X, EMPTY, EMPTY],
-            [O, X, O]
-        ]
-    ))
-    
-    #raise NotImplementedError
 
 def result(board, action):
     """
@@ -135,16 +124,17 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    if terminal(board) == True:
+        return None
+
     options = []
     results = []
     best_result = None
     for action in actions(board):
         board_result = result(board, action)
         if player(board) == O:
-            print("player O")
             v = max_value(board_result)
         if player(board) == X:
-            print("player X")
             v = min_value(board_result)
         results.append(v)
         options.append([v, action])
@@ -183,8 +173,8 @@ def min_value(board):
 if __name__ == "__main__":
     print(minimax(
         [
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]
+            [X, O, O],
+            [EMPTY, X, EMPTY],
+            [EMPTY, EMPTY, X]
         ]
     ))
