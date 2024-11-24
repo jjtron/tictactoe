@@ -131,32 +131,30 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    if player(board) == O:
-        options = []
-        results = []
-        for action in actions(board):
-            board_result = result(board, action)
+    options = []
+    results = []
+    best_result = None
+    for action in actions(board):
+        board_result = result(board, action)
+        if player(board) == O:
+            print("player O")
             v = max_value(board_result)
-            results.append(v)
-            options.append([v, action])
+        if player(board) == X:
+            print("player X")
+            v = min_value(board_result)
+        results.append(v)
+        options.append([v, action])
+
+    if player(board) == O:
         best_result = min(results)
-        for i in range(0, len(options)):
-            if best_result == options[i][0]:
-                return options[i][1]
-            
 
     if player(board) == X:
-        options = []
-        results = []
-        for action in actions(board):
-            board_result = result(board, action)
-            v = max_value(board_result)
-            results.append(v)
-            options.append([v, action])
-        best_result = min(results)
-        for i in range(0, len(options)):
-            if best_result == options[i][0]:
-                return options[i][1]
+        best_result = max(results)
+
+    for i in range(0, len(options)):
+        if best_result == options[i][0]:
+            return options[i][1]
+            
 
 def max_value(board):
     if terminal(board) == True:
@@ -181,8 +179,8 @@ def min_value(board):
 if __name__ == "__main__":
     print(minimax(
         [
-            [X,         X,      EMPTY    ],
-            [X,         O,          EMPTY ],
-            [EMPTY,     O,          O       ]
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]
         ]
     ))
