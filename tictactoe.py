@@ -80,7 +80,6 @@ def winner(board):
     for rows in board:
         # check rows
         if rows[0] == rows[1] == rows[2] and rows[0] != None:
-            print("row win detected")
             return rows[0]
         # collect columns
         for cell in rows:
@@ -89,16 +88,13 @@ def winner(board):
     for i in range(0, 2):
         # check columns
         if cases[i] == cases[i + 3] == cases[i + 6] and cases[i] != None:
-            print("column win detected")
-            return cases[0]
+            return cases[i]
 
     # check diagonals
     if cases[0] == cases[4] == cases[8] and cases[0] != None:
-            print("diag 048 win detected")
             return cases[0]
 
     if cases[2] == cases[4] == cases[6] and cases[0] != None:
-            print("diag 246 win detected")
             return cases[2]
 
     return None
@@ -135,7 +131,58 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    if player(board) == O:
+        options = []
+        results = []
+        for action in actions(board):
+            board_result = result(board, action)
+            v = max_value(board_result)
+            results.append(v)
+            options.append([v, action])
+        best_result = min(results)
+        for i in range(0, len(options)):
+            if best_result == options[i][0]:
+                return options[i][1]
+            
+
+    if player(board) == X:
+        options = []
+        results = []
+        for action in actions(board):
+            board_result = result(board, action)
+            v = max_value(board_result)
+            results.append(v)
+            options.append([v, action])
+        best_result = min(results)
+        for i in range(0, len(options)):
+            if best_result == options[i][0]:
+                return options[i][1]
+
+def max_value(board):
+    if terminal(board) == True:
+        return utility(board)
+
+    v = -math.inf
+    for action in actions(board):
+        r = result(board, action)
+        v = max(v, min_value(r))
+    return v
+
+def min_value(board):
+    if terminal(board) == True:
+        return utility(board)
+
+    v = math.inf
+    for action in actions(board):
+        r = result(board, action)
+        v = min(v, max_value(r))
+    return v
 
 if __name__ == "__main__":
-    main()
+    print(minimax(
+        [
+            [X,         X,      EMPTY    ],
+            [X,         O,          EMPTY ],
+            [EMPTY,     O,          O       ]
+        ]
+    ))
