@@ -127,6 +127,16 @@ def minimax(board):
     if terminal(board) == True:
         return None
 
+    """
+    Block immediate three-in-a-row threat
+    """
+    is_threat = get_3_in_row_threat(board)
+    if is_threat != None:
+        return is_threat
+
+    """
+    No immediate three-in-a-row threat: proceed . . .
+    """
     options = []
     results = []
     best_result = None
@@ -160,6 +170,7 @@ def max_value(board):
         v = max(v, min_value(r))
     return v
 
+
 def min_value(board):
     if terminal(board) == True:
         return utility(board)
@@ -170,11 +181,31 @@ def min_value(board):
         v = min(v, max_value(r))
     return v
 
+
+def get_3_in_row_threat(board):
+    opponent = None
+    if player(board) == X:
+        opponent = O
+    else:
+        opponent = X
+    test_board = copy.deepcopy(board)
+    for i, rows in enumerate(test_board):
+        for j, cell in enumerate(rows):
+            if cell == None:
+                test_board[i][j] = opponent
+                if winner(test_board):
+                    return ((i, j))
+                else:
+                    test_board = copy.deepcopy(board)
+
+    return None
+
+
 if __name__ == "__main__":
     print(minimax(
         [
-            [X, O, O],
-            [EMPTY, X, EMPTY],
-            [EMPTY, EMPTY, X]
+            [None, 'X', 'O'],
+            [None, 'X', None],
+            [None, None, None]
         ]
     ))
