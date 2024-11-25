@@ -85,10 +85,10 @@ def winner(board):
 
     # check diagonals
     if cases[0] == cases[4] == cases[8] and cases[0] != None:
-            return cases[0]
+        return cases[0]
 
     if cases[2] == cases[4] == cases[6] and cases[0] != None:
-            return cases[2]
+        return cases[2]
 
     return None
 
@@ -119,6 +119,7 @@ def utility(board):
     if is_winner == X:
         return 1
     return 0
+
 
 def minimax(board):
     """
