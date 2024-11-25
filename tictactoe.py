@@ -200,12 +200,3 @@ def get_3_in_row_threat(board):
 
     return None
 
-
-if __name__ == "__main__":
-    print(minimax(
-        [
-            [None, 'X', 'O'],
-            [None, 'X', None],
-            [None, None, None]
-        ]
-    ))
